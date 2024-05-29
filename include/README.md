@@ -1,9 +1,8 @@
 # Implementation Details
-A low-level explaination of exactly how the bot works and what processes / methods are used to complete each task.
+A low-level explaination of each module.
 
 ## Table of Contents
 #### 1) Explaination of source code
-#### 2) How the bot works
 
 <br/></br>
 
@@ -54,7 +53,7 @@ l : 3.48
 ```
 
 #### Websocket Utilities
-This module is used to listen for updates from data streams. It is a basic implementation of [The Websocket Protocol](https://datatracker.ietf.org/doc/html/rfc6455) that does not handle continuation frames - since there shouldn't be any for this user case. Non-blocking I/O is also supported; in that case, when <code/> websocket::recv </code> is called, it will return immediately if it receives no frame header and will read the full message before returning otherwise. If it is a blocking socket, it will return once it has recieved a message. <br>
+This module is used to listen for updates from data streams. It is a basic implementation of [The Websocket Protocol](https://datatracker.ietf.org/doc/html/rfc6455) that does not handle continuation frames - since there shouldn't be any for my current user cases. Non-blocking I/O is also supported; in that case, when <code/> websocket::recv </code> is called, it will return immediately if it receives no frame header and will read the full message before returning otherwise. If it is a blocking socket, it will return once it has recieved a message. <br>
 
 <code/>single_ws_blocking.cpp</code> and <code/>multiple_ws_non_blocking.cpp</code> contain an example of printing messages from a single blocking websocket and multiple non-blocking websockets respectively. Both of these examples use the yahoo finance data stream which sends proto-buffered messages, and these messages are not readable in the form that they are sent so if you decide to test those two examples then expect that.
 
