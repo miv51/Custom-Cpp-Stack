@@ -64,9 +64,6 @@ This module is used to perform http get, patch, post, and delete requests. Like 
 #### Socket Utilities
 This module is used to manage SSL resources and wrap sockets and socket operations. The websocket and http modules heavily utilize this module. <br>
 
-#### Model Utilities
-This module contains the predictive model used to predict transition probabilities and is used to productionize trained tensorflow models. It is a raw and highly efficient (for this bot) implementation of a multilayer perceptron (MLP) and allows me to dynamically load model weights for fixed model archetectures. <br>
-
 #### Input-Output (io) Utilities
 This module is used to convert strings to their respective datatypes. The convert function replaces io functions from the standard library such as std::stod, std::stoi, and other similar functions and the convertUTC function is used to convert UTC timestamps to time-of-day in nanoseconds (not time since epoch). <br>
 
