@@ -30,6 +30,7 @@ public:
     constexpr inline const segmentedQueueIterator end() const { return segmentedQueueIterator(); }
     constexpr inline const size_t size() const noexcept { return length; }
 
+    constexpr inline void extend(segmentedQueue&); //join two queues together (pushes the queue passed as a function argument and then empties it)
     constexpr inline void push_back(const dataType&); //place an item in front of the most recent element - making it the first element
     constexpr inline void pop_front(); //remove the oldest element in the queue
     constexpr inline void clear(); //empty the queue
@@ -150,6 +151,32 @@ segmentedQueue<dataType, block_size>::~segmentedQueue()
 
     first = nullptr;
     last = nullptr;
+}
+
+template <typename dataType, size_t block_size>
+constexpr inline void segmentedQueue<dataType, block_size>::extend(segmentedQueue& other)
+{
+    if (other.length <= 0) return;
+    if (length <= 0)
+    {
+        delete first;
+
+        first = other.first;
+        last = other.last;
+        length = other.length;
+    }
+    else
+    {
+        other.last->previous = first;
+        first->next = other.last;
+
+        first = other.first; //concatenated order should be [other, this] with other being at the front
+        length += other.length;
+    }
+
+    other.first = new stack();
+    other.last = other.first;
+    other.reset();
 }
 
 template <typename dataType, size_t block_size>
